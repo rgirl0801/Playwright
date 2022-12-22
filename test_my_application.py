@@ -21,6 +21,17 @@ def test_homepage_has_Playwright_in_title_and_get_started_link_linking_to_the_in
     expect(page).to_have_url(re.compile(".*intro"))
 
 
-def test_new(page:Page):
+def test_add_to_cart(page:Page):
     page.goto('https://www.demoblaze.com/index.html')
     expect(page).to_have_title('STORE')
+    page.get_by_role("link", name="Samsung galaxy s6").click()
+    expect(page.get_by_text("Add to cart")).to_be_visible()
+    page.get_by_text('Add to cart').click()
+
+def test_login(page:Page):
+    page.goto('https://www.demoblaze.com/index.html')
+    page.get_by_role("link", name="Log in").click() #get_by_text("Log in").nth(1)
+    # page.get_by_test_id('#loginusername').type('Kate')
+    page.locator('#loginusername').type('KateFox1')
+    page.locator('#loginpassword').type('KateFox')
+    page.get_by_role('button').click()
